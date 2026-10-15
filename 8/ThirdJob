@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    environment {
+        GIT_URL = 'https://github.com/sasha-production/GN.git'
+    }
+
+    stages {
+        stage('Restore README.md') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'github-token',
+                    usernameVariable: 'GIT_USER',
+                    passwordVariable: 'GIT_TOKEN'
+                )]) {
+                sh '''
+                    DEST=/var/jenkins_home/local-storage/main/FirstJob/
+                    cd "$DEST"
+                    echo $GIT_TOKEN
+                    echo "USER=$GIT_USER"
+                    echo "TOKEN_LEN=${#GIT_TOKEN}"
+                    ls
+                    git status
+                    git config user.email "JENKINS@gmail.com"
+                    git config user.name "jenkins"
+                    git add -A
+                    git commit -m "Remove README.md via Job_2" || echo "Nothing to commit"
+                    git push https://\${GIT_USER}:\${GIT_TOKEN}@://github.com HEAD:main
+                '''
+            } }
+        }
+    }
+}

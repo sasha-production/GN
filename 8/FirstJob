@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout main') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/sasha-production/GN.git'
+            }
+        }
+        stage('Copy to local storage') {
+            steps {
+                sh '''
+                    mkdir -p /var/jenkins_home/local-storage/main
+                    rm -rf /var/jenkins_home/local-storage/main/*
+                    cp -a "${WORKSPACE}/" /var/jenkins_home/local-storage/main/
+                    echo "Готово: $(ls /var/jenkins_home/local-storage/main | wc -l) файлов"
+                '''
+            }
+        }
+    }
+}

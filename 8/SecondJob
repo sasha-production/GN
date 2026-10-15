@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Delete files from local storage') {
+            steps {
+                sh '''
+                    DEST=/var/jenkins_home/local-storage/main/FirstJob/
+                    if [ ! -d "$DEST" ]; then
+                        echo "Папка $DEST не найдена, сначала запусти Job_1"
+                        exit 1
+                    fi
+
+                    echo "До удаления:"
+                    ls -la "$DEST"
+
+                    rm -f "$DEST/README.MD"
+
+                    echo "После удаления:"
+                    ls -la "$DEST"
+                '''
+            }
+        }
+    }
+}
