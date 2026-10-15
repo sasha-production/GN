@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, status
 from pydantic import BaseModel, EmailStr
 from typing import List, Optional
+import uvicorn
 
 app = FastAPI(title="User API")
 
