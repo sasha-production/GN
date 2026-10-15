@@ -1,4 +1,4 @@
 import json
 inData = '{"one": ["http", "yandex.ru"], "two" : ["https", "google.com"]}'
-res = json.loads(inData)
-print(res['one'])
+outData = json.loads(inData)
+print(outData)

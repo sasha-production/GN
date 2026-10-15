@@ -20,25 +20,14 @@ def make_lucky(ticket: tuple):
 
 def main(numbers):
 
-    # Примеры
-    tests = [
-        (1, 2, 3, 3, 2, 1),
-        (2, 1, 3, 1, 3, 2),
-        (1, 1, 1, 1, 2, 2),
-        (1, 2, 3, 4, 5, 6),
-        (0, 0, 0, 0, 0, 0),
-        (1, 1, 1, 1, 1, 2),
-    ]
-
-    for t in tests:
-        result = make_lucky(t)
-        print(f"{t} -> {'✅ ' + result if result else '❌ нельзя'}")
-
     res = make_lucky(numbers)
     print(f"Можно составить счастливый билет из чисел {numbers}" if res else "Нельзя составить счастливый билет")
 
 
 
 if __name__ == '__main__':
+    '''
+    счастливый билет - если первые три цифры являются зеркальным отражением последних трёх (палиндром)
+    '''
     numbers = list(map(int, input().split()))
     main(numbers)

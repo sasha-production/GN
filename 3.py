@@ -15,7 +15,7 @@ def func(path: str):
         if isinstance(current, dict) and key in current:
             current = current[key]
         else:
-            return None  # или raise KeyError(f"Ключ '{key}' не найден")
+            return None
     return current
 
 
