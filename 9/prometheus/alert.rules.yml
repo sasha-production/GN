@@ -1,0 +1,33 @@
+groups:
+  - name: helloapp
+    rules:
+      - alert: HelloAppDown
+        expr: up{job="helloapp"} == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "HelloApp недоступен"
+          description: "Prometheus не может scrape-ить {{ $labels.instance }} более 30 секунд."
+
+      - alert: HelloAppHighErrorRate
+        expr: |
+          sum(rate(http_requests_total{job="helloapp", status=~"5.."}[1m]))
+          /
+          sum(rate(http_requests_total{job="helloapp"}[1m])) > 0.05
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Высокая доля 5xx в HelloApp"
+          description: "5xx > 5% от всех запросов за последнюю минуту."
+
+      - alert: HelloAppHealthFailing
+        expr: |
+          sum(rate(http_requests_total{job="helloapp", handler="/health", status="503"}[1m])) > 0
+        for: 30s
+        labels:
+          severity: warning
+        annotations:
+          summary: "HelloApp /health возвращает 503"
+          description: "Проверка /health падает — вероятно, недоступен ping 77.88.8.8."
