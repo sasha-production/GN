@@ -41,4 +41,7 @@ network:
           - 1.1.1.1
       dhcp4: false
 ```
+<img width="1727" height="548" alt="image" src="https://github.com/user-attachments/assets/808d0b08-5514-46e5-98d7-4716f26bc89f" />
+<img width="1007" height="404" alt="image" src="https://github.com/user-attachments/assets/4e7d3b91-2c4b-437f-a38a-81443af76246" />
+
 
